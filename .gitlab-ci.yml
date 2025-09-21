@@ -1,0 +1,22 @@
+stages:
+  - pr-review
+
+pr-review:
+  stage: pr-review
+  image: python:3.9
+  before_script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+  script:
+    - python -m pr_review_agent.cli review
+      --provider gitlab
+      --repo $CI_PROJECT_PATH
+      --pr $CI_MERGE_REQUEST_IID
+      --ai-suggestions
+      --post-comments
+      --severity-threshold medium
+  only:
+    - merge_requests
+  variables:
+    GITLAB_TOKEN: $GITLAB_TOKEN
+    OPENAI_API_KEY: $OPENAI_API_KEY

@@ -1,0 +1,708 @@
+/* GitHub-inspired Design System */
+:root {
+    /* GitHub Colors */
+    --github-bg: #0d1117;
+    --github-bg-secondary: #161b22;
+    --github-bg-tertiary: #21262d;
+    --github-border: #30363d;
+    --github-text: #f0f6fc;
+    --github-text-secondary: #8b949e;
+    --github-text-muted: #6e7681;
+    --github-accent: #238636;
+    --github-accent-hover: #2ea043;
+    --github-danger: #da3633;
+    --github-warning: #d29922;
+    --github-info: #0969da;
+    --github-success: #238636;
+    
+    /* Severity Colors */
+    --severity-critical: #da3633;
+    --severity-high: #f85149;
+    --severity-medium: #d29922;
+    --severity-low: #238636;
+    
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--github-bg);
+    color: var(--github-text);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+/* Header */
+.header {
+    background-color: var(--github-bg-secondary);
+    border-bottom: 1px solid var(--github-border);
+    padding: var(--space-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.logo i {
+    font-size: 24px;
+    color: var(--github-text);
+}
+
+.logo h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--github-text);
+}
+
+.header-actions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: none;
+}
+
+.btn-primary {
+    background-color: var(--github-accent);
+    color: white;
+    border-color: var(--github-accent);
+}
+
+.btn-primary:hover {
+    background-color: var(--github-accent-hover);
+    border-color: var(--github-accent-hover);
+}
+
+.btn-success {
+    background-color: var(--github-success);
+    color: white;
+    border-color: var(--github-success);
+}
+
+.btn-success:hover {
+    background-color: #2ea043;
+    border-color: #2ea043;
+}
+
+.btn-outline {
+    color: var(--github-text);
+    border-color: var(--github-border);
+}
+
+.btn-outline:hover {
+    background-color: var(--github-bg-tertiary);
+    border-color: var(--github-text-secondary);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Main Layout */
+.main {
+    padding: var(--space-xl) 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    min-height: 600px;
+}
+
+/* Panels */
+.panel {
+    background-color: var(--github-bg-secondary);
+    border: 1px solid var(--github-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--github-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--github-bg-tertiary);
+}
+
+.panel-header h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--github-text);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.file-info {
+    display: flex;
+    gap: var(--space-md);
+    font-size: 12px;
+    color: var(--github-text-secondary);
+}
+
+.score-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.score-label {
+    font-size: 12px;
+    color: var(--github-text-secondary);
+}
+
+.score-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--github-text);
+}
+
+/* Code Editor */
+.code-container {
+    flex: 1;
+    padding: var(--space-md);
+}
+
+#code-editor {
+    width: 100%;
+    height: 400px;
+    background-color: var(--github-bg);
+    color: var(--github-text);
+    border: 1px solid var(--github-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+}
+
+#code-editor:focus {
+    border-color: var(--github-accent);
+    box-shadow: 0 0 0 2px rgba(35, 134, 54, 0.2);
+}
+
+.panel-actions {
+    padding: var(--space-md);
+    border-top: 1px solid var(--github-border);
+    display: flex;
+    gap: var(--space-sm);
+}
+
+/* Results */
+.results-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid var(--github-border);
+    background-color: var(--github-bg-tertiary);
+}
+
+.tab {
+    flex: 1;
+    padding: var(--space-md);
+    background: none;
+    border: none;
+    color: var(--github-text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.tab:hover {
+    color: var(--github-text);
+    background-color: var(--github-bg-secondary);
+}
+
+.tab.active {
+    color: var(--github-text);
+    background-color: var(--github-bg-secondary);
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--github-accent);
+}
+
+.badge {
+    background-color: var(--github-danger);
+    color: white;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* Tab Content */
+.tab-content {
+    flex: 1;
+    overflow: hidden;
+}
+
+.tab-pane {
+    height: 100%;
+    display: none;
+    overflow-y: auto;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Welcome Message */
+.welcome-message {
+    padding: var(--space-2xl);
+    text-align: center;
+}
+
+.welcome-icon {
+    font-size: 48px;
+    color: var(--github-text-secondary);
+    margin-bottom: var(--space-lg);
+}
+
+.welcome-message h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    color: var(--github-text);
+}
+
+.welcome-message p {
+    color: var(--github-text-secondary);
+    margin-bottom: var(--space-xl);
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    background-color: var(--github-bg-tertiary);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    color: var(--github-text-secondary);
+}
+
+.feature i {
+    color: var(--github-accent);
+}
+
+/* Summary Content */
+.summary-content {
+    padding: var(--space-lg);
+}
+
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.stat {
+    text-align: center;
+    padding: var(--space-md);
+    background-color: var(--github-bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--github-border);
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--github-text);
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--github-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.summary-text {
+    background-color: var(--github-bg);
+    border: 1px solid var(--github-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+/* Issues */
+.issues-content {
+    padding: var(--space-lg);
+}
+
+.issue {
+    background-color: var(--github-bg);
+    border: 1px solid var(--github-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    position: relative;
+}
+
+.issue-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.severity-badge {
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.severity-critical {
+    background-color: var(--severity-critical);
+    color: white;
+}
+
+.severity-high {
+    background-color: var(--severity-high);
+    color: white;
+}
+
+.severity-medium {
+    background-color: var(--severity-medium);
+    color: white;
+}
+
+.severity-low {
+    background-color: var(--severity-low);
+    color: white;
+}
+
+.issue-location {
+    color: var(--github-text-secondary);
+    font-size: 12px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.issue-message {
+    color: var(--github-text);
+    margin-bottom: var(--space-sm);
+}
+
+.issue-suggestion {
+    background-color: var(--github-bg-tertiary);
+    border-left: 3px solid var(--github-accent);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 13px;
+    color: var(--github-text-secondary);
+}
+
+/* Suggestions */
+.suggestions-content {
+    padding: var(--space-lg);
+}
+
+.suggestion {
+    background-color: var(--github-bg);
+    border: 1px solid var(--github-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+
+.suggestion-icon {
+    color: var(--github-accent);
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.suggestion-text {
+    flex: 1;
+    color: var(--github-text);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: var(--space-2xl);
+    color: var(--github-text-secondary);
+}
+
+.empty-state i {
+    font-size: 32px;
+    margin-bottom: var(--space-md);
+    opacity: 0.5;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(13, 17, 23, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.loading-spinner {
+    text-align: center;
+    color: var(--github-text);
+}
+
+.loading-spinner i {
+    font-size: 32px;
+    margin-bottom: var(--space-md);
+    color: var(--github-accent);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(13, 17, 23, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--github-bg-secondary);
+    border: 1px solid var(--github-border);
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: var(--space-lg);
+    border-bottom: 1px solid var(--github-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--github-text);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--github-text-secondary);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    color: var(--github-text);
+}
+
+.modal-body {
+    padding: var(--space-lg);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* History Item */
+.history-item {
+    background-color: var(--github-bg);
+    border: 1px solid var(--github-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.history-item:hover {
+    border-color: var(--github-accent);
+    background-color: var(--github-bg-tertiary);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+}
+
+.history-filename {
+    font-weight: 600;
+    color: var(--github-text);
+}
+
+.history-timestamp {
+    font-size: 12px;
+    color: var(--github-text-secondary);
+}
+
+.history-stats {
+    display: flex;
+    gap: var(--space-md);
+    font-size: 12px;
+    color: var(--github-text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .features {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-pane.active {
+    animation: fadeIn 0.3s ease;
+}
+
+.issue {
+    animation: fadeIn 0.3s ease;
+}
+
+.suggestion {
+    animation: fadeIn 0.3s ease;
+}

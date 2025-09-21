@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PR Review Agent - Code Quality Analysis</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fab fa-github"></i>
+                    <h1>PR Review Agent</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline" onclick="showHistory()">
+                        <i class="fas fa-history"></i> History
+                    </button>
+                    <button class="btn btn-primary" onclick="runDemo()">
+                        <i class="fas fa-play"></i> Run Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="grid">
+                <!-- Left Panel - Code Input -->
+                <div class="panel left-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-code"></i> Code Editor</h2>
+                        <div class="file-info">
+                            <span id="filename">main.py</span>
+                            <span id="line-count">0 lines</span>
+                        </div>
+                    </div>
+                    
+                    <div class="code-container">
+                        <textarea 
+                            id="code-editor" 
+                            placeholder="Paste your Python code here..."
+                            oninput="updateLineCount()"
+                        ></textarea>
+                    </div>
+                    
+                    <div class="panel-actions">
+                        <button class="btn btn-success" onclick="analyzeCode()" id="analyze-btn">
+                            <i class="fas fa-search"></i> Analyze Code
+                        </button>
+                        <button class="btn btn-outline" onclick="clearCode()">
+                            <i class="fas fa-trash"></i> Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Results -->
+                <div class="panel right-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-chart-line"></i> Analysis Results</h2>
+                        <div class="score-display" id="score-display">
+                            <span class="score-label">Score</span>
+                            <span class="score-value">--</span>
+                        </div>
+                    </div>
+                    
+                    <div class="results-container">
+                        <!-- Tabs -->
+                        <div class="tabs">
+                            <button class="tab active" onclick="showTab('summary')">
+                                <i class="fas fa-info-circle"></i> Summary
+                            </button>
+                            <button class="tab" onclick="showTab('issues')">
+                                <i class="fas fa-bug"></i> Issues
+                                <span class="badge" id="issues-badge">0</span>
+                            </button>
+                            <button class="tab" onclick="showTab('suggestions')">
+                                <i class="fas fa-lightbulb"></i> Suggestions
+                            </button>
+                        </div>
+                        
+                        <!-- Tab Content -->
+                        <div class="tab-content">
+                            <!-- Summary Tab -->
+                            <div id="summary-tab" class="tab-pane active">
+                                <div class="welcome-message" id="welcome-message">
+                                    <div class="welcome-icon">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                    <h3>Welcome to PR Review Agent!</h3>
+                                    <p>Paste your Python code in the editor and click "Analyze Code" to get started.</p>
+                                    <div class="features">
+                                        <div class="feature">
+                                            <i class="fas fa-search"></i>
+                                            <span>Advanced code analysis</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <span>Security vulnerability detection</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-lightbulb"></i>
+                                            <span>Intelligent suggestions</span>
+                                        </div>
+                                        <div class="feature">
+                                            <i class="fas fa-chart-bar"></i>
+                                            <span>Quality scoring</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div id="summary-content" class="summary-content" style="display: none;">
+                                    <div class="summary-stats">
+                                        <div class="stat">
+                                            <div class="stat-value" id="total-lines">0</div>
+                                            <div class="stat-label">Lines of Code</div>
+                                        </div>
+                                        <div class="stat">
+                                            <div class="stat-value" id="issues-found">0</div>
+                                            <div class="stat-label">Issues Found</div>
+                                        </div>
+                                        <div class="stat">
+                                            <div class="stat-value" id="suggestions-count">0</div>
+                                            <div class="stat-label">Suggestions</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="summary-text" id="summary-text"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Issues Tab -->
+                            <div id="issues-tab" class="tab-pane">
+                                <div id="issues-content" class="issues-content">
+                                    <div class="empty-state">
+                                        <i class="fas fa-bug"></i>
+                                        <p>No issues found yet. Analyze your code to see results.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Suggestions Tab -->
+                            <div id="suggestions-tab" class="tab-pane">
+                                <div id="suggestions-content" class="suggestions-content">
+                                    <div class="empty-state">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <p>No suggestions yet. Analyze your code to see recommendations.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Analyzing your code...</p>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div id="history-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-history"></i> Analysis History</h3>
+                <button class="close-btn" onclick="closeHistory()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="history-content">
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <p>No analysis history yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
